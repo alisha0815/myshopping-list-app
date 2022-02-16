@@ -18,6 +18,10 @@ function App() {
     setToDo('');
   };
 
+  const removeHandler = (id) => {
+    setToDos(toDos.filter((item) => item.id !== id));
+  };
+
   return (
     <>
       <h2>My Shopping List</h2>
@@ -25,7 +29,9 @@ function App() {
         <input value={toDo} onChange={inputHandler} type="text" />
         <button onClick={addHandler}>Add to Do</button>
       </form>
-      <div>{/* <List toDos={toDos} /> */}</div>
+      <div>
+        <List toDos={toDos} removeHandler={removeHandler} />
+      </div>
     </>
   );
 }
