@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import List from './components/list';
 
@@ -18,6 +18,11 @@ function App() {
     setToDo('');
   };
 
+  useEffect(() => {
+    if (toDos) {
+      setToDos(toDos);
+    }
+  }, [toDos]);
   const removeHandler = (id) => {
     setToDos(toDos.filter((item) => item.id !== id));
   };

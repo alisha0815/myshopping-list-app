@@ -6,7 +6,7 @@ const ListItem = ({ id, toDo, removeHandler }) => {
       <li>
         <p>{toDo}</p>
       </li>
-      <button onClick={removeHandler}>Remove</button>
+      <button onClick={() => removeHandler(id)}>Remove</button>
     </ul>
   );
 };
