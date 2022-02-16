@@ -3,32 +3,30 @@ import './App.css';
 import List from './components/list';
 
 function App() {
-  const [toDo, setTodo] = useState('');
-  const [toDos, setTodos] = useState([]);
-  const onChange = (event) => setTodo(event.target.value);
-  const onSubmit = (event) => {
-    event.preventDefault();
-    if (toDo === '') {
-      return;
-    }
-    setTodos([toDo, ...toDos]);
-    setTodo('');
+  const [toDo, setToDo] = useState('');
+  const [toDos, setToDos] = useState([]);
+
+  const inputHandler = (e) => {
+    const newToDo = e.target.value;
+    setToDo(newToDo);
+  };
+
+  const addHandler = (e) => {
+    e.preventDefault();
+    setToDos([{ text: toDo, id: Math.random() * 1000 }, ...toDos]);
+    console.log(toDos);
+    setToDo('');
   };
 
   return (
-    <div>
-      <h1>My toDos</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          value={toDo}
-          type="text"
-          placeholder="Enter what to do..."
-        />
-        <button>Add to do</button>
+    <>
+      <h2>My Shopping List</h2>
+      <form>
+        <input value={toDo} onChange={inputHandler} type="text" />
+        <button onClick={addHandler}>Add to Do</button>
       </form>
-      <List toDo={toDo} toDos={toDos} />
-    </div>
+      <div>{/* <List toDos={toDos} /> */}</div>
+    </>
   );
 }
 
