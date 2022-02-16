@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import List from './components/list';
 
 function App() {
   const [toDo, setTodo] = useState('');
@@ -26,6 +27,7 @@ function App() {
         />
         <button>Add to do</button>
       </form>
+      <List toDo={toDo} toDos={toDos} />
     </div>
   );
 }
