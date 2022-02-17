@@ -17,8 +17,8 @@ const List = ({
           toDo={toDo.text}
           removeHandler={removeHandler}
           editHandler={editHandler}
-          // isEditing={isEditing}
-          // setIsEditing={setIsEditing}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
         />
       ))}
     </ul>

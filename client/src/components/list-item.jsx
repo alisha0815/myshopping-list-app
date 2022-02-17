@@ -14,8 +14,7 @@ const ListItem = ({
         <p>{toDo}</p>
       </li>
       <button onClick={() => removeHandler(id)}>Remove</button>
-      {/* create new input field */}
-      <button onClick={() => editHandler(id)}>Edit</button>
+      <button onClick={() => setIsEditing(true)}>Edit</button>
     </ul>
   );
 };

@@ -7,6 +7,7 @@ const App = () => {
   const [toDo, setToDo] = useState('');
   const [toDos, setToDos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [newInputText, setnewInputText] = useState('');
 
   const inputHandler = (e) => {
     const newToDo = e.target.value;
@@ -20,7 +21,6 @@ const App = () => {
     }
     const input = inputRef.current.value;
     setToDos([{ text: input, id: Math.random() * 1000 }, ...toDos]);
-    console.log(inputRef.current.value);
     setToDo('');
   };
 
@@ -35,39 +35,74 @@ const App = () => {
       }
       return toDo;
     });
-    setToDos(editedToDo, ...toDos);
-    console.log(editedToDo);
+    setToDos(editedToDo);
+    console.log('edited to do', editedToDo);
   };
+
+  //  to track new input text
+  const editHandleChange = (e) => {
+    setnewInputText(e.target.value);
+    console.log(newInputText);
+  };
+
+  // edit submit
+
+  const editSubmitHandler = (e) => {
+    console.log('event', e);
+    e.preventDefault();
+    console.log('newinput===>', newInputText);
+    // editHandler(e.target.id, newInputText);
+    setToDo(newInputText);
+    setIsEditing(false);
+    setnewInputText('');
+    console.log('value==>', typeof e.target.value);
+  };
+
+  const viewTemplate = (
+    <form>
+      <input
+        ref={inputRef}
+        value={toDo}
+        id={toDo.id}
+        onChange={inputHandler}
+        type="text"
+      />
+      <button onClick={addHandler}>Add to Do</button>
+    </form>
+  );
+
+  const editingTemplate = (
+    <form>
+      <label htmlFor={toDo.id}>New name for {toDo.text}</label>
+      <input
+        ref={inputRef}
+        value={newInputText}
+        id={toDo.id}
+        onChange={editHandleChange}
+        type="text"
+      />
+      <button type="submit" onClick={editSubmitHandler}>
+        Update to Do
+      </button>
+      <button type="submit" onClick={editHandler}>
+        Cancel
+      </button>
+    </form>
+  );
 
   return (
     <>
       <h2>My Shopping List</h2>
-      <form>
-        <input
-          ref={inputRef}
-          value={toDo}
-          onChange={inputHandler}
-          type="text"
-        />
-        <button onClick={addHandler}>Add to Do</button>
-      </form>
+      <li>{isEditing ? editingTemplate : viewTemplate}</li>
+
       <div>
         <List
           toDos={toDos}
           removeHandler={removeHandler}
           editHandler={editHandler}
-          // isEditing={isEditing}
-          // setIsEditing={setIsEditing}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
         />
-        <div>
-          {isEditing ? (
-            <form>
-              <input type="text" defaultValue={toDo} />
-            </form>
-          ) : (
-            <h1 onDoubleClick={() => setIsEditing(true)}>{toDo}</h1>
-          )}
-        </div>
       </div>
     </>
   );
